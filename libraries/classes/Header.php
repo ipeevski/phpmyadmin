@@ -534,8 +534,7 @@ class Header
             && ! empty($GLOBALS['cfg']['CaptchaLoginPublicKey'])
         ) {
             $captcha_url
-                = ' https://apis.google.com https://www.google.com/recaptcha/'
-                . ' https://www.gstatic.com/recaptcha/ https://ssl.gstatic.com/ ';
+                = ' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ ';
         } else {
             $captcha_url = '';
         }
@@ -554,19 +553,19 @@ class Header
         );
         header(
             "Content-Security-Policy: default-src 'self' "
-            . $captcha_url
             . $GLOBALS['cfg']['CSPAllow'] . ';'
             . "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
             . $captcha_url
             . $GLOBALS['cfg']['CSPAllow'] . ';'
-            . "style-src 'self' 'unsafe-inline' "
+            . "frame-src 'self' "
             . $captcha_url
+            . ";"
+            . "style-src 'self' 'unsafe-inline' "
             . $GLOBALS['cfg']['CSPAllow']
             . ";"
             . "img-src 'self' data: "
             . $GLOBALS['cfg']['CSPAllow']
             . $map_tile_urls
-            . $captcha_url
             . ";"
             . "object-src 'none';"
         );
@@ -579,7 +578,6 @@ class Header
             . "img-src 'self' data: "
             . $GLOBALS['cfg']['CSPAllow']
             . $map_tile_urls
-            . $captcha_url
             . ";"
             . "object-src 'none';"
         );
@@ -593,12 +591,10 @@ class Header
             . " 'unsafe-inline' 'unsafe-eval';"
             . "referrer no-referrer;"
             . "style-src 'self' 'unsafe-inline' "
-            . $captcha_url
             . ';'
             . "img-src 'self' data: "
             . $GLOBALS['cfg']['CSPAllow']
             . $map_tile_urls
-            . $captcha_url
             . ";"
             . "object-src 'none';"
         );
